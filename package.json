@@ -1,0 +1,49 @@
+{
+  "name": "node-typescript-template",
+  "version": "0.0.1",
+  "description": "Template for typescript node",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "commit": "cz",
+    "dev": "nodemon --watch 'src/' --exec 'ts-node src/index.ts' -e ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fvsystem/cache-template.git"
+  },
+  "author": "Lucas Rego",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fvsystem/node-typescript-template/issues"
+  },
+  "homepage": "https://github.com/fvsystem/node-typescript-template#readme",
+  "devDependencies": {
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "@types/jest": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "commitizen": "latest",
+    "cz-conventional-changelog": "latest",
+    "eslint": "latest",
+    "eslint-config-airbnb-base": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-import-resolver-typescript": "latest",
+    "eslint-plugin-import": "latest",
+    "eslint-plugin-prettier": "latest",
+    "husky": "latest",
+    "jest": "latest",
+    "nodemon": "latest",
+    "prettier": "latest",
+    "ts-jest": "latest",
+    "ts-node": "latest",
+    "typescript": "latest"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

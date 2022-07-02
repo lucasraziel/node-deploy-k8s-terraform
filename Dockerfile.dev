@@ -1,0 +1,12 @@
+FROM node:16
+
+WORKDIR /app
+
+COPY package* .
+
+RUN npm ci
+
+COPY . .
+
+CMD [ "npm", "run", "dev" ]
+
