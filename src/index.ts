@@ -1,5 +1,8 @@
-function soma(a: number, b: number): number {
-  return a + b;
-}
+import app from './app';
 
-export default soma;
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  // eslint-disable-next-line no-console
+  console.log(`Rodando na porta ${port}`);
+});

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deployk8s-env
+  namespace: deployk8s
+data:
+    PASS_DB: "${PASS_DB}"
+    USER_DB: "${USER_DB}"
+    HOST_DB: "${HOST_DB}"
+    PORT: "${PORT}"
+    NODE_ENV: "${NODE_ENV}"

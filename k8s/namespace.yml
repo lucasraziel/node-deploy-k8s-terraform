@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: deployk8s
+  namespace: deployk8s
+  labels:
+    name: deployk8s

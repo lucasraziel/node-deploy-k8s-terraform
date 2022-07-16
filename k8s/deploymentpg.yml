@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  namespace: deployk8s
+spec:
+  replicas: 1
+  selector:
+      matchLabels:
+        app: postgres-server
+  template:
+    metadata:
+      labels:
+        app: postgres-server
+        namespace: deployk8s
+    spec:
+      containers:
+        - name: postgres
+          image: postgres
+          envFrom:
+          - configMapRef:
+              name: deployk8s-env-db
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: data-volume
+            - mountPath: /docker-entrypoint-initdb.d
+              name: config
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: postgres-volume
+        - name: config
+          configMap:
+            name: configmap-initdb
+            defaultMode: 0777
+            items:
+            - key: script
+              path: 10_postgis.sh
+
+
+

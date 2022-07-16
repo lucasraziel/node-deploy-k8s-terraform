@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-env-filebeats
+  namespace: kube-system
+data:
+    ELASTIC_CLOUD_ID: "${ELK_CLOUD_ID}"
+    ELASTIC_CLOUD_AUTH: "elastic:${ELK_PASSWORD}"

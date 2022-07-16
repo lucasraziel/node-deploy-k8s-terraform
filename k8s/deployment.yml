@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: deployk8s-server
+    namespace: deployk8s
+    labels:
+        app: deployk8s-server
+spec:
+    selector:
+        matchLabels:
+            app: deployk8s-server    
+    replicas: 4
+    template:
+        metadata:
+            namespace: deployk8s
+            labels:
+                app: "deployk8s-server"
+            annotations:
+                co.elastic.logs/json.keys_under_root: "true"
+                co.elastic.logs/json.overwrite_keys: "true"
+                co.elastic.logs/json.add_error_key: "true"
+                co.elastic.logs/json.expand_keys: "true"
+        spec:
+            serviceAccountName: server
+            containers:
+            - name: deployk8s-server
+              image: "ghcr.io/lucasraziel/node-deploy-k8s-terraform:0.2"
+              envFrom:
+                - configMapRef:
+                    name: deployk8s-env
+              livenessProbe:
+                httpGet:
+                    path: /healthz
+                    port: 3333
+                periodSeconds: 5
+                failureThreshold: 1
+                timeoutSeconds: 1
+                successThreshold: 1
+              startupProbe:
+                httpGet:
+                    path: /healthz
+                    port: 3333
+                periodSeconds: 7
+                failureThreshold: 30
+              resources:
+                requests: 
+                    cpu: "0.1"
+                    memory: 100Mi
+                limits:
+                    cpu: "0.2"
+                    memory: 200Mi
+              readinessProbe:
+                httpGet:
+                    path: /healthz
+                    port: 3333
+                periodSeconds: 3
+                failureThreshold: 1
+            imagePullSecrets:
+                - name: deployk8s-ghcr-secret

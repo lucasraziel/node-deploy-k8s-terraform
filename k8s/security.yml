@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: server
+  namespace: deployk8s
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: server-read
+  namespace: deployk8s
+rules:
+- apiGroups: [""]
+  resources: ["pods","services"]
+  verbs: ["get","watch","list"]
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get","watch","list"]  
+  
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: server-read-bind
+  namespace: deployk8s
+subjects:
+- kind: ServiceAccount
+  name: server
+  namespace: deployk8s
+roleRef:
+  kind: Role
+  name: server-read
+  apiGroup: rbac.authorization.k8s.io
